@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TGTodoList</string>
+    <string name="addBtnText">Add Task</string>
+    <string name="addTaskHint">Add a task:</string>
+    <string name="addAlertDialogBtnText">Add</string>
+    <string name="EditTaskBtn">Edit</string>
+</resources>
