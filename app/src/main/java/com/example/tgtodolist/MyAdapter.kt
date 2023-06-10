@@ -1,5 +1,6 @@
 package com.example.tgtodolist
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.text.Editable
@@ -42,6 +43,7 @@ class MyAdapter(
         val deleteBtn: ImageButton = itemView.findViewById(R.id.deleteBtn)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: MyViewHold, position: Int) {
         val items = list[position]
         holder.taskText.text = items.taskText
@@ -54,9 +56,7 @@ class MyAdapter(
             }
         }
         holder.deleteBtn.setOnClickListener {
-            list.removeAt(position)
-            notifyItemRemoved(position)
-            notifyItemRangeChanged(position, list.size)
+            removeItem(position)
         }
         holder.editBtn.setOnClickListener {
             val alert = AlertDialog.Builder(context)
@@ -72,9 +72,18 @@ class MyAdapter(
             editTaskEt.text = editableOldText
             addEditedBtn.setOnClickListener {
                 val newText = editTaskEt.text.toString()
-                holder.taskText.text = newText
+                val editedTask = TaskData(items.checkState, newText)
+                removeItem(position)
+                list.add(0, editedTask)
                 editAlert.dismiss()
+                notifyDataSetChanged()
             }
         }
+    }
+
+    fun removeItem(position: Int) {
+        list.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, list.size)
     }
 }
