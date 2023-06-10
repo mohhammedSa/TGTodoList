@@ -13,14 +13,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tgtodolist.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     private lateinit var list: ArrayList<TaskData>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         list = ArrayList()
-        binding.recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        binding.recyclerView.adapter = MyAdapter(this, R.layout.task_card, list)
+
+        recyclerViewAdapter()
 
         binding.addTask.setOnClickListener {
             val alert = AlertDialog.Builder(this)
@@ -45,5 +45,9 @@ class MainActivity : AppCompatActivity() {
             LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         binding.recyclerView.adapter = MyAdapter(this, R.layout.task_card, list)
         alert.dismiss()
+    }
+    private fun recyclerViewAdapter() {
+        binding.recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        binding.recyclerView.adapter = MyAdapter(this, R.layout.task_card, list)
     }
 }

@@ -1,7 +1,11 @@
 package com.example.tgtodolist
 
 import android.content.Context
+import android.graphics.Color
 import android.text.Editable
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.StrikethroughSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +14,7 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -40,8 +45,14 @@ class MyAdapter(
     override fun onBindViewHolder(holder: MyViewHold, position: Int) {
         val items = list[position]
         holder.taskText.text = items.taskText
-        holder.checkbox.isChecked = items.checkState == 1
 
+        holder.checkbox.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                holder.taskText.setTextColor(Color.GREEN)
+            } else {
+                holder.taskText.setTextColor(Color.BLACK)
+            }
+        }
         holder.deleteBtn.setOnClickListener {
             list.removeAt(position)
             notifyItemRemoved(position)
