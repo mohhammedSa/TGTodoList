@@ -81,7 +81,7 @@ class MyAdapter(
         }
     }
 
-    fun removeItem(position: Int) {
+    private fun removeItem(position: Int) {
         list.removeAt(position)
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, list.size)
